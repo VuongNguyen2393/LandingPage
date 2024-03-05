@@ -7,7 +7,9 @@
  * To learn more, visit: https://css-tricks.com/reboot-resets-reasoning/
  *
 */
-
+html {
+    scroll-behavior: smooth;
+  }
 
 /* ---- Base Rules ---- */
 body {
@@ -64,6 +66,7 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+
 .navbar__menu ul {
     padding-left: 0;
     margin: 0;
@@ -72,10 +75,15 @@ section {
     display:flex;
     flex-direction: row;
     justify-content: end;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
 }
 
 .navbar__menu li {
     display: inline;
+    position:static;
 }
 
 .navbar__menu .menu__link {

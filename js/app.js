@@ -45,18 +45,36 @@ const navUl = document.createElement('ul');
 for(let i = 0; i < sections.length; i++){
     const newItem = document.createElement('li');
     newItem.textContent = sections[i].querySelector('h2').innerText;
-    newItem.id = sections[i].id;
     newItem.className = 'menu__link';
+    newItem.dataset.nav = sections[i].id;
     navUl.appendChild(newItem);
 }
 navDiv.appendChild(navUl);
 document.body.insertBefore(navDiv,document.body.firstChild);
 
 // Add class 'active' to section when near top of viewport
+document.addEventListener('scroll', makeActive);
 
+function makeActive(){
+    for(const section of sections){
+        const box = section.getBoundingClientRect();
+        if(box.top <= 150 && box.bottom >= 150){
+            section.classList.add('your-active-class');
+        }else{
+            section.classList.remove('your-active-class');
+        }
+    }
+}
 
 // Scroll to anchor ID using scrollTO event
+document.querySelector('ul').addEventListener('click',scrollToSection);
 
+function scrollToSection(evt){
+    if(evt.target.nodeName === 'LI'){
+        const targetId = `#${evt.target.dataset.nav}`
+        document.querySelector(targetId).scrollIntoView();
+    }
+}
 
 /**
  * End Main Functions
