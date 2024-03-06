@@ -39,18 +39,17 @@ const sections = document.querySelectorAll('section');
 */
 
 // build the nav
-const navDiv = document.createElement('div');
-navDiv.className = 'navbar__menu'
-const navUl = document.createElement('ul');
-for(let i = 0; i < sections.length; i++){
-    const newItem = document.createElement('li');
-    newItem.textContent = sections[i].dataset.nav;
-    newItem.className = 'menu__link';
-    newItem.dataset.nav = sections[i].id;
-    navUl.appendChild(newItem);
+function buildNav(){
+    const navUl = document.querySelector('#navbar__list');
+    for(let i = 0; i < sections.length; i++){
+        const newItem = document.createElement('li');
+        newItem.textContent = sections[i].dataset.nav;
+        newItem.className = 'menu__link';
+        newItem.dataset.nav = sections[i].id;
+        navUl.appendChild(newItem);
+    }
 }
-navDiv.appendChild(navUl);
-document.body.insertBefore(navDiv,document.body.firstChild);
+
 
 // Add class 'active' to section when near top of viewport
 function makeActive(){
@@ -79,6 +78,7 @@ function scrollToSection(evt){
 */
 
 // Build menu 
+document.addEventListener('DOMContentLoaded', buildNav);
 
 // Scroll to section on link click
 document.addEventListener('scroll', makeActive);
