@@ -29,8 +29,15 @@ const sections = document.querySelectorAll('section');
  * Start Helper Functions
  * 
 */
+function hideNavBar(){
+    const navBar = document.querySelector('#navbar__list');
+    navBar.style.opacity = 0;
+}
 
-
+function showNavBar(){
+    const navBar = document.querySelector('#navbar__list');
+    navBar.style.opacity = 1;
+}
 
 /**
  * End Helper Functions
@@ -49,7 +56,6 @@ function buildNav(){
         navUl.appendChild(newItem);
     }
 }
-
 
 // Add class 'active' to section when near top of viewport
 function makeActive(){
@@ -71,6 +77,20 @@ function scrollToSection(evt){
     }
 }
 
+//hide Nav Bar
+function delayHideNavBar(){
+    setTimeout(()=>{
+        hideNavBar();
+    }, 100);
+}
+
+//show Nav Bar
+function delayShowNavBar(){
+    setTimeout(()=>{
+        showNavBar();
+    }, 200);
+}
+
 /**
  * End Main Functions
  * Begin Events
@@ -85,5 +105,12 @@ document.addEventListener('scroll', makeActive);
 
 // Set sections as active
 document.querySelector('ul').addEventListener('click',scrollToSection);
+
+// Hide NavBar
+document.addEventListener('scrollend', delayShowNavBar);
+
+// Show NavBar
+document.addEventListener('scroll', delayHideNavBar);
+
 
 
