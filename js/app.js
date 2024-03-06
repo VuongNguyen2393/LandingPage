@@ -44,7 +44,7 @@ navDiv.className = 'navbar__menu'
 const navUl = document.createElement('ul');
 for(let i = 0; i < sections.length; i++){
     const newItem = document.createElement('li');
-    newItem.textContent = sections[i].querySelector('h2').innerText;
+    newItem.textContent = sections[i].dataset.nav;
     newItem.className = 'menu__link';
     newItem.dataset.nav = sections[i].id;
     navUl.appendChild(newItem);
@@ -64,7 +64,7 @@ function makeActive(){
     }
 }
 
-// Scroll to anchor ID using scrollTO event
+// Scroll to anchor ID
 function scrollToSection(evt){
     if(evt.target.nodeName === 'LI'){
         const targetId = `#${evt.target.dataset.nav}`
