@@ -53,8 +53,6 @@ navDiv.appendChild(navUl);
 document.body.insertBefore(navDiv,document.body.firstChild);
 
 // Add class 'active' to section when near top of viewport
-document.addEventListener('scroll', makeActive);
-
 function makeActive(){
     for(const section of sections){
         const box = section.getBoundingClientRect();
@@ -67,8 +65,6 @@ function makeActive(){
 }
 
 // Scroll to anchor ID using scrollTO event
-document.querySelector('ul').addEventListener('click',scrollToSection);
-
 function scrollToSection(evt){
     if(evt.target.nodeName === 'LI'){
         const targetId = `#${evt.target.dataset.nav}`
@@ -85,7 +81,9 @@ function scrollToSection(evt){
 // Build menu 
 
 // Scroll to section on link click
+document.addEventListener('scroll', makeActive);
 
 // Set sections as active
+document.querySelector('ul').addEventListener('click',scrollToSection);
 
 
