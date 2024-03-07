@@ -29,16 +29,31 @@ const sections = document.querySelectorAll('section');
  * Start Helper Functions
  * 
 */
-function hideNavBar(){
+function HideNavBar(){
     const navBar = document.querySelector('#navbar__list');
     navBar.style.opacity = 0;
+    navBar.style.transition = 'ease 0.5s all';
 }
 
-function showNavBar(){
+function ShowNavBar(){
     const navBar = document.querySelector('#navbar__list');
     navBar.style.opacity = 1;
+    navBar.style.transition = 'ease 0.2s all';
 }
 
+function HighlightNavBar(sectionId){
+    const targetLi = document.querySelector(`li[data-nav="${sectionId}"]`);
+    targetLi.style.background = '#333';
+    targetLi.style.color = '#fff';
+    targetLi.style.transition = 'ease 0.3s all';
+}
+
+function UnhighlightNavBar(sectionId){
+    const targetLi = document.querySelector(`li[data-nav="${sectionId}"]`);
+    targetLi.style.background = '#fff';
+    targetLi.style.color = '#333'; 
+    targetLi.style.transition = 'ease 0.3s all';
+}
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -46,7 +61,7 @@ function showNavBar(){
 */
 
 // build the nav
-function buildNav(){
+function BuildNav(){
     const navUl = document.querySelector('#navbar__list');
     for(let i = 0; i < sections.length; i++){
         const newItem = document.createElement('li');
@@ -58,19 +73,21 @@ function buildNav(){
 }
 
 // Add class 'active' to section when near top of viewport
-function makeActive(){
+function MakeActive(){
     for(const section of sections){
         const box = section.getBoundingClientRect();
         if(box.top <= 150 && box.bottom >= 150){
             section.classList.add('your-active-class');
+            HighlightNavBar(section.id);
         }else{
             section.classList.remove('your-active-class');
+            UnhighlightNavBar(section.id);
         }
     }
 }
 
 // Scroll to anchor ID
-function scrollToSection(evt){
+function ScrollToSection(evt){
     if(evt.target.nodeName === 'LI'){
         const targetId = `#${evt.target.dataset.nav}`
         document.querySelector(targetId).scrollIntoView();
@@ -78,16 +95,18 @@ function scrollToSection(evt){
 }
 
 //hide Nav Bar
-function delayHideNavBar(){
-    setTimeout(()=>{
-        hideNavBar();
-    }, 100);
+function DelayHideNavBar(){
+    if(window.scrollY >= 150){
+        setTimeout(()=>{
+            HideNavBar();
+        }, 100);
+    }
 }
 
 //show Nav Bar
-function delayShowNavBar(){
+function DelayShowNavBar(){
     setTimeout(()=>{
-        showNavBar();
+        ShowNavBar();
     }, 200);
 }
 
@@ -98,19 +117,19 @@ function delayShowNavBar(){
 */
 
 // Build menu 
-document.addEventListener('DOMContentLoaded', buildNav);
+document.addEventListener('DOMContentLoaded', BuildNav);
 
 // Scroll to section on link click
-document.addEventListener('scroll', makeActive);
+document.addEventListener('scroll', MakeActive);
 
 // Set sections as active
-document.querySelector('ul').addEventListener('click',scrollToSection);
+document.addEventListener('click',ScrollToSection);
 
 // Hide NavBar
-document.addEventListener('scrollend', delayShowNavBar);
+document.addEventListener('scroll', DelayShowNavBar);
 
 // Show NavBar
-document.addEventListener('scroll', delayHideNavBar);
+document.addEventListener('scrollend', DelayHideNavBar);
 
 
 
